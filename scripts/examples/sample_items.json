@@ -1,0 +1,36 @@
+[
+  {
+    "input": "Który wyraz w zdaniu „Posłanka, która wczoraj wystąpiła, złożyła wniosek” odnosi się do posłanki?",
+    "gold": "która"
+  },
+  {
+    "input": "Który wyraz w zdaniu „Sędzia, który wydał wyrok, był zmęczony” odnosi się do sędziego?",
+    "gold": "który"
+  },
+  {
+    "input": "Czy zdanie „Nikt nie przyszedł na spotkanie” jest twierdzące czy przeczące?",
+    "gold": "przeczące",
+    "aliases": [
+      "przeczenie"
+    ]
+  },
+  {
+    "input": "Czy zdanie „Nikomu nic się nie stało” jest twierdzące czy przeczące?",
+    "gold": "przeczące"
+  },
+  {
+    "input": "Uzupełnij: Kasia wczoraj ___ do kina. (pójść, forma żeńska, czas przeszły)",
+    "gold": "poszła",
+    "aliases": [
+      "poszła."
+    ]
+  },
+  {
+    "input": "W zdaniu „Zamek był pięknie oświetlony nocą” słowo „zamek” oznacza budowlę czy element ubrania? Podaj jednym słowem.",
+    "gold": "budowlę"
+  },
+  {
+    "input": "Który wyraz w zdaniu „Nauczycielka, która przyszła późno, przeprosiła uczniów” odnosi się do nauczycielki?",
+    "gold": "która"
+  }
+]

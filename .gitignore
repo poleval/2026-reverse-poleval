@@ -1,0 +1,13 @@
+# Local credentials, generated outputs and organiser files
+.env
+.venv/
+__pycache__/
+*.py[cod]
+/responses/
+correctness_matrix.json
+example-submission/runs/
+development/runs/
+development/feedback-log.tsv
+development/qualification-log.tsv
+development/evaluator-status.tsv
+submissions/

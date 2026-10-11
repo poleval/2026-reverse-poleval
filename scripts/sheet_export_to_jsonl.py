@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Optional helper: convert a two-column CSV/TSV spreadsheet export to items.json.
+"""Optional helper: convert a two-column CSV/TSV spreadsheet export to items.jsonl.
 
 Input headers may be input/gold or pytanie/odpowiedź. Multiline cells are
-preserved. Aliases may be added to the JSON file after conversion.
+preserved. Aliases may be added to the JSONL file after conversion.
 """
 from __future__ import annotations
 
@@ -70,17 +70,16 @@ def load_pairs(path: str) -> List[Tuple[str, str]]:
     return pairs
 
 
-def write_json(path: str, pairs: List[Tuple[str, str]]) -> None:
+def write_jsonl(path: str, pairs: List[Tuple[str, str]]) -> None:
     with open(path, "w", encoding="utf-8") as f:
-        json.dump([{"input": input_, "gold": gold} for input_, gold in pairs],
-                  f, ensure_ascii=False, indent=2)
-        f.write("\n")
+        for input_, gold in pairs:
+            f.write(json.dumps({"input": input_, "gold": gold}, ensure_ascii=False) + "\n")
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--in", dest="inp", required=True, help="CSV or TSV export from Sheets")
-    parser.add_argument("--out", required=True, help="Destination items.json")
+    parser.add_argument("--out", required=True, help="Destination items.jsonl")
     return parser.parse_args()
 
 
@@ -96,7 +95,7 @@ def main() -> None:
     out_dir = os.path.dirname(os.path.abspath(args.out))
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
-    write_json(args.out, pairs)
+    write_jsonl(args.out, pairs)
     print(f"[ok] {n} items -> {args.out}")
 
 

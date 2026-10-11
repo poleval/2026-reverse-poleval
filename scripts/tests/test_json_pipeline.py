@@ -1,4 +1,4 @@
-"""Regression checks for JSON migration and response alignment."""
+"""Regression checks for JSONL migration and response alignment."""
 import contextlib
 import io
 import json
@@ -14,7 +14,7 @@ SCRIPTS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(SCRIPTS))
 from common import load_items
 from validate_format import validate_file
-from sheet_export_to_json import load_pairs
+from sheet_export_to_jsonl import load_pairs, write_jsonl
 import query_models
 
 
@@ -23,10 +23,10 @@ class JsonPipelineTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
-        self.items = self.root / 'items.json'
+        self.items = self.root / 'items.jsonl'
 
     def write(self, records):
-        self.items.write_text(json.dumps(records, ensure_ascii=False), encoding='utf-8')
+        self.items.write_text(''.join(json.dumps(record, ensure_ascii=False) + '\n' for record in records), encoding='utf-8')
 
     def test_json_text_round_trip_and_optional_aliases(self):
         text = 'Polski tekst: „cytat”, tab\t i nowa\nlinia'
@@ -46,8 +46,25 @@ class JsonPipelineTests(unittest.TestCase):
             with self.subTest(record=record):
                 self.write([record])
                 self.assertTrue(validate_file(str(self.items), n_min=1)[0])
-        self.items.write_text('[{"input":"x","gold":"a","gold":"b"}]')
+        self.items.write_text('{"input":"x","gold":"a","gold":"b"}\n')
         self.assertTrue(validate_file(str(self.items), n_min=1)[0])
+
+    def test_jsonl_rejects_arrays_blank_lines_and_reports_bad_line(self):
+        record = '{"input":"x","gold":"g"}'
+        for text, error in [("[" + record + "]\n", "expected an object"),
+                            (record + "\n\n", "line 2: blank lines"),
+                            (record + "\n{broken}\n", "line 2:"),
+                            ("", "non-empty JSONL")]:
+            with self.subTest(text=text):
+                self.items.write_text(text, encoding='utf-8')
+                with self.assertRaisesRegex(ValueError, error):
+                    load_items(str(self.items))
+
+    def test_spreadsheet_writer_outputs_one_object_per_line(self):
+        pairs = [('tekst\nz cytatem "tak"', 'tak'), ('drugi', 'nie')]
+        write_jsonl(str(self.items), pairs)
+        self.assertEqual(len(self.items.read_text().splitlines()), 2)
+        self.assertEqual([(item.input, item.gold) for item in load_items(str(self.items))], pairs)
 
     def test_normalised_duplicates_alias_limits_and_budget(self):
         self.write([{'input': 'x', 'gold': 'g'}, {'input': ' x ', 'gold': 'h'}])

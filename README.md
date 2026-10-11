@@ -19,7 +19,7 @@ Spreadsheet path (no coding):
 
 Submissions are collected by email at
 [krzysztof.pawel.wrobel@uj.edu.pl](mailto:krzysztof.pawel.wrobel@uj.edu.pl).
-Send one `items.json` attachment and a
+Send one `items.jsonl` attachment and a
 short provenance/design explanation; mark the final email FINAL. See
 [submission procedure](development/README.md). No competition platform is required.
 
@@ -30,7 +30,7 @@ You submit the items. You do not upload model predictions.
 
 | Track | What | Where | Rank |
 | --- | --- | --- | --- |
-| **1 — Benchmark set** (official) | 50–200 pairs `(input, gold)` | `items.json` sent to the organisers | Hidden Test B panel |
+| **1 — Benchmark set** (official) | 50–200 pairs `(input, gold)` | `items.jsonl` sent to the organisers | Hidden Test B panel |
 | **2 — Generator** (secondary) | Repository implementing `generate(seed)` | Clone URL or zip | Mean over 3 hidden seeds |
 
 Tracks are ranked separately. Track 1 is the official task.
@@ -95,7 +95,7 @@ Example (passes the Polish-necessity gate):
 {"input": "Który wyraz w zdaniu „Posłanka, która wczoraj wystąpiła, złożyła wniosek” odnosi się do posłanki?", "gold": "która"}
 ```
 
-`scripts/examples/sample_items.json` shows the file shape only. It is not a
+`scripts/examples/sample_items.jsonl` shows the file shape only. It is not a
 template to clone.
 
 ## Originality and human authorship
@@ -128,16 +128,14 @@ rejected, including after the scoring run if found later.
 
 ## Track 1 — file format
 
-One UTF-8 JSON file, `items.json`, containing an array of objects. Each item
+One UTF-8 JSONL file, `items.jsonl`, with one object per line. Each item
 has required string fields `input` and `gold`, and an optional array of
 strings `aliases` (empty when omitted). No other fields are accepted.
 
 Schema-only example, not a valid linguistic task:
 
-```json
-[
-  {"input": "First line\nSecond line", "gold": "answer", "aliases": ["answer."]}
-]
+```jsonl
+{"input": "First line\nSecond line", "gold": "answer", "aliases": ["answer."]}
 ```
 
 Submit 50–200 items. Inputs must be non-empty, unique after official
@@ -145,14 +143,15 @@ normalisation, and at most 2,000 characters. Gold and each alias must be
 non-empty after normalisation and at most 80 characters. At most five
 aliases per item are allowed. Duplicate aliases and aliases equivalent to
 the canonical gold after normalisation are rejected. Multiline inputs are
-allowed. Items are numbered automatically in reports; no IDs are required.
+allowed through JSON escaping (`\n`). Blank lines are rejected.
+Items are numbered automatically in reports; no IDs are required.
 
 Fewer than 200 items is allowed with no item-count penalty. Deterministic,
 human-designed generation followed by editing is allowed under the
 originality and authorship rules.
 
 ```bash
-python scripts/validate_format.py --items items.json
+python scripts/validate_format.py --items items.jsonl
 ```
 
 `format_ok\t1` means the file may enter qualification; it is not the task
@@ -172,7 +171,7 @@ An alias must be genuinely equivalent to gold for that item, rather than a
 model-specific answer pattern. Organisers review aliases with the items;
 changes require requalification. No separate alias file is submitted.
 Implementation: `scripts/aliases_evaluator.py`. Example:
-`scripts/examples/sample_items.json`.
+`scripts/examples/sample_items.jsonl`.
 
 **Custom `evaluator.py`** only when aliases cannot express the
 equivalence:
@@ -294,7 +293,7 @@ implement `generate(seed) → n` items, $`50 \le n \le 200`$, same
 `input`/`gold` schema, documented as:
 
 ```bash
-python generate.py --seed N --out items.json
+python generate.py --seed N --out items.jsonl
 ```
 
 The run is deterministic given `seed`, **offline**, and must finish within
@@ -309,7 +308,7 @@ with a content hash in the README. Generation samples that snapshot. It
 does not download data or call a network service. Python dependencies are
 pinned and installable from the archive before the network is cut. If the
 data licence forbids shipping a snapshot, Track 2 is unavailable: submit a
-frozen Track 1 JSON instead.
+frozen Track 1 JSONL instead.
 
 ```text
 generate.py
@@ -336,7 +335,7 @@ call is the same Track 2 disqualification.
 
 ```bash
 python scripts/check_generator_seeds.py \
-  --sets seed0.json seed1.json seed2.json
+  --sets seed0.jsonl seed1.jsonl seed2.jsonl
 ```
 
 Worked (invalid) example: `example-submission/track-2/`. It multiplies
@@ -367,12 +366,12 @@ tests and do not qualify as linguistic submissions.
 
 ### Evaluation scripts
 
-- [scripts/validate_format.py](scripts/validate_format.py) — Validate items.json.
+- [scripts/validate_format.py](scripts/validate_format.py) — Validate items.jsonl.
 - [scripts/query_models.py](scripts/query_models.py) — Query models.
 - [scripts/evaluate_responses.py](scripts/evaluate_responses.py) — Mark model responses.
 - [scripts/compute_metric.py](scripts/compute_metric.py) — Compute the score.
 - [scripts/check_generator_seeds.py](scripts/check_generator_seeds.py) — Check generator seed variation.
-- [scripts/sheet_export_to_json.py](scripts/sheet_export_to_json.py) — Convert spreadsheet exports to JSON.
+- [scripts/sheet_export_to_jsonl.py](scripts/sheet_export_to_jsonl.py) — Convert spreadsheet exports to JSONL.
 - [scripts/aliases_evaluator.py](scripts/aliases_evaluator.py) — Official aliases checker.
 - [scripts/example_evaluator.py](scripts/example_evaluator.py) — Custom evaluator example.
 - [scripts/common.py](scripts/common.py) — Shared loading, prompts and normalisation.
@@ -382,7 +381,7 @@ tests and do not qualify as linguistic submissions.
 
 ### Sample items and responses
 
-- [scripts/examples/sample_items.json](scripts/examples/sample_items.json) — Sample items with aliases.
+- [scripts/examples/sample_items.jsonl](scripts/examples/sample_items.jsonl) — Sample items with aliases.
 - [scripts/examples/responses/model-a.jsonl](scripts/examples/responses/model-a.jsonl) — Synthetic model A responses.
 - [scripts/examples/responses/model-b.jsonl](scripts/examples/responses/model-b.jsonl) — Synthetic model B responses.
 - [scripts/examples/responses/model-c.jsonl](scripts/examples/responses/model-c.jsonl) — Synthetic model C responses.
@@ -392,7 +391,7 @@ tests and do not qualify as linguistic submissions.
 
 - [example-submission/README.md](example-submission/README.md) — Example submission instructions.
 - [example-submission/provenance.md](example-submission/provenance.md) — Example provenance.
-- [example-submission/track-1/items.json](example-submission/track-1/items.json) — Track 1 item set.
+- [example-submission/track-1/items.jsonl](example-submission/track-1/items.jsonl) — Track 1 item set.
 - [example-submission/track-2/README.md](example-submission/track-2/README.md) — Track 2 instructions.
 - [example-submission/track-2/generate.py](example-submission/track-2/generate.py) — Track 2 generator.
 - [example-submission/track-2/LICENSE](example-submission/track-2/LICENSE) — Generator licence.
@@ -412,12 +411,12 @@ the hidden panel.
 
 ```bash
 python scripts/query_models.py \
-  --items items.json \
+  --items items.jsonl \
   --models-file development/models.txt \
   --output-dir responses
 
 python scripts/evaluate_responses.py \
-  --items items.json \
+  --items items.jsonl \
   --responses-dir responses \
   --output correctness_matrix.json
 
@@ -435,7 +434,7 @@ panel):
 
 ```bash
 python scripts/evaluate_responses.py \
-  --items scripts/examples/sample_items.json \
+  --items scripts/examples/sample_items.jsonl \
   --responses-dir scripts/examples/responses \
   --output /tmp/reverse-poleval-example.json
 

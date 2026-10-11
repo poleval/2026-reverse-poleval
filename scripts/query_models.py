@@ -6,7 +6,7 @@ submission, and save the raw answers.
 Example:
     # credentials in .env: EVAL_BASE_URL, EVAL_API_KEY
     python scripts/query_models.py \\
-        --items example-submission/track-1/items.json \\
+        --items example-submission/track-1/items.jsonl \\
         --models-file development/models.txt \\
         --output-dir example-submission/runs/responses
 
@@ -89,7 +89,7 @@ def query_one(base_url: str, api_key: str, model: str, prompt: str,
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--items", required=True, help="Path to items.json (input, gold, optional aliases)")
+    parser.add_argument("--items", required=True, help="Path to items.jsonl (input, gold, optional aliases)")
     parser.add_argument("--models", nargs="+", default=None, help="One or more model IDs on the endpoint")
     parser.add_argument("--models-file", default=None,
                         help="Text file with one model ID per line (alternative to --models)")

@@ -35,11 +35,10 @@ def generate(seed: int, n: int = N_MAX, lo: int = 10, hi: int = 99) -> List[Item
     return items
 
 
-def write_json(path: str, items: List[Item]) -> None:
+def write_jsonl(path: str, items: List[Item]) -> None:
     with open(path, "w", encoding="utf-8") as f:
-        json.dump([{"input": input_, "gold": gold} for input_, gold in items],
-                  f, ensure_ascii=False, indent=2)
-        f.write("\n")
+        for input_, gold in items:
+            f.write(json.dumps({"input": input_, "gold": gold}, ensure_ascii=False) + "\n")
 
 
 def parse_args() -> argparse.Namespace:
@@ -53,7 +52,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     items = generate(args.seed, args.n)
-    write_json(args.out, items)
+    write_jsonl(args.out, items)
     print(f"[ok] seed={args.seed} n={len(items)} -> {args.out}")
 
 

@@ -109,7 +109,7 @@ def aliases_match(
 
 
 # --------------------------------------------------------------------------
-# Submitted JSON array (input, gold, optional aliases)
+# Submitted JSONL records (input, gold, optional aliases)
 # --------------------------------------------------------------------------
 
 @dataclass
@@ -130,19 +130,26 @@ def _unique_object(pairs):
 
 
 def load_items(path: str) -> List[Item]:
-    """Load the strict submission schema; indices are zero-based array positions.
+    """Load the strict submission schema; indices are zero-based line positions.
 
     Budget and length limits are checked by validate_format.py. This loader
     checks types, fields and non-empty/unique inputs for every pipeline entry.
     """
+    records = []
     with open(path, encoding="utf-8") as f:
-        records = json.load(f, object_pairs_hook=_unique_object)
-    if not isinstance(records, list) or not records:
-        raise ValueError(f"{path}: expected a non-empty JSON array")
+        for line_no, line in enumerate(f, start=1):
+            if not line.strip():
+                raise ValueError(f"{path}: line {line_no}: blank lines are not allowed")
+            try:
+                records.append(json.loads(line, object_pairs_hook=_unique_object))
+            except ValueError as exc:
+                raise ValueError(f"{path}: line {line_no}: {exc}") from exc
+    if not records:
+        raise ValueError(f"{path}: expected a non-empty JSONL file")
     items = []
     seen = set()
     for idx, record in enumerate(records):
-        location = f"{path}: item {idx + 1}"
+        location = f"{path}: line {idx + 1}"
         if not isinstance(record, dict):
             raise ValueError(f"{location}: expected an object")
         if set(record) - {"input", "gold", "aliases"}:

@@ -1,6 +1,6 @@
 # Preparing a submission in a spreadsheet
 
-Submit `items.json`: an array of items with `input`, `gold` and optional
+Submit `items.jsonl`: one item per line with `input`, `gold` and optional
 `aliases`. Email the file with a short explanation of the diagnostic
 phenomena, how the items were created, sources and confirmation of the
 authorship and publication licence rules.
@@ -18,8 +18,8 @@ Download the sheet as CSV or TSV. A team member with Python can use the
 optional starter-kit converter:
 
 ```bash
-python scripts/sheet_export_to_json.py --in questions.csv --out items.json
-python scripts/validate_format.py --items items.json
+python scripts/sheet_export_to_jsonl.py --in questions.csv --out items.jsonl
+python scripts/validate_format.py --items items.jsonl
 ```
 
 The converter removes recognised headers and preserves cell text,
@@ -29,5 +29,5 @@ At most five aliases are allowed per item; each must mean the same thing
 as the canonical answer. Do not submit a separate aliases file.
 
 If your team needs help with conversion, arrange it with the organiser by
-email. Submit one complete JSON file. Send the final version in an email
+email. Submit one complete JSONL file. Send the final version in an email
 marked FINAL before the deadline.

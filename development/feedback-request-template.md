@@ -2,7 +2,7 @@
 
 Team:
 
-Attached items.json / earlier attachment in this email thread:
+Attached items.jsonl / earlier attachment in this email thread:
 
 Please run the development panel on this version.
 

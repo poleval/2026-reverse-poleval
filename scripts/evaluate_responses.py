@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Score model JSONL responses against items.json, including inline aliases.
+"""Score model JSONL responses against items.jsonl, including inline aliases.
 
 Example:
-    python scripts/evaluate_responses.py --items items.json --responses-dir responses --output correctness_matrix.json
+    python scripts/evaluate_responses.py --items items.jsonl --responses-dir responses --output correctness_matrix.json
 
 Custom evaluators require manual acceptance and a hermetic sandbox for
 organiser use. They cannot be combined with non-empty inline aliases.
@@ -18,7 +18,7 @@ from task_params import CASE_FOLD
 
 def parse_args():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--items", required=True, help="Original items.json used for inference")
+    parser.add_argument("--items", required=True, help="Original items.jsonl used for inference")
     parser.add_argument("--responses-dir", required=True)
     parser.add_argument("--evaluator", default=None)
     parser.add_argument("--timeout", type=float, default=5.0)

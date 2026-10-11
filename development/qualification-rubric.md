@@ -69,7 +69,7 @@ sample.
 
 After official normalisation (NFKC, strip, compact whitespace):
 
-- gold is a single non-empty string (canonical form in `items.json`)
+- gold is a single non-empty string (canonical form in `items.jsonl`)
 - gold is uniquely determined by the item, or extra equally good short
   forms are listed in each item's `aliases` array
 - if `evaluator.py` was **manually accepted**, it must accept the gold and
@@ -91,8 +91,8 @@ Sent with the item file, not inside it.
 
 **Official aliases** are the optional `aliases` array in each JSON item.
 Gold is always accepted. Review the item and all variants together and
-freeze the submitted JSON file at qualification. Validate with
-`scripts/validate_format.py --items items.json`.
+freeze the submitted JSONL file at qualification. Validate with
+`scripts/validate_format.py --items items.jsonl`.
 
 **Custom `evaluator.py`:** status lives in `evaluator-status.tsv`:
 `pending` / `accepted` / `declined`, with the accepted file's SHA-256 digest.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate items.json: an array of input/gold objects with optional aliases.
+"""Validate items.jsonl: one input/gold object per line with optional aliases.
 
 This checks format only, not linguistic qualification or the task score.
 """
@@ -41,7 +41,7 @@ def validate_file(path: str, n_min: int = N_ITEMS_MIN, n_max: int = N_ITEMS_MAX,
 
 def parse_args():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--items", required=True, help="Path to items.json")
+    parser.add_argument("--items", required=True, help="Path to items.jsonl")
     parser.add_argument("--min-n", type=int, default=N_ITEMS_MIN)
     parser.add_argument("--max-n", type=int, default=N_ITEMS_MAX)
     parser.add_argument("--max-input-chars", type=int, default=MAX_INPUT_CHARS)

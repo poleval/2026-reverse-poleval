@@ -1,6 +1,6 @@
 """Reference evaluator: reproduces the official default exact-match
 normalisation. For extra surface forms prefer the official aliases
-checker (inline ``aliases`` in ``items.json``)
+checker (inline ``aliases`` in ``items.jsonl``)
 instead of custom code. Copy this file only if you need an equivalence
 that aliases cannot express.
 

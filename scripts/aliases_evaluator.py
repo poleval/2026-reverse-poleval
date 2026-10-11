@@ -1,4 +1,4 @@
-"""Official aliases checker for each item's optional aliases array in items.json.
+"""Official aliases checker for each item's optional aliases array in items.jsonl.
 
 Gold is always accepted under official NFKC/whitespace normalisation.
 No participant code or separate alias file is needed.

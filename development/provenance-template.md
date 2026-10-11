@@ -46,7 +46,7 @@ prompts, or previous PolEval test sets.
 
 ## Evaluator (optional)
 
-Inline aliases in items.json / none / custom evaluator.py (if agreed):
+Inline aliases in items.jsonl / none / custom evaluator.py (if agreed):
 
 Stated equivalence (e.g. “NFKC exact match, plus the listed aliases”):
 

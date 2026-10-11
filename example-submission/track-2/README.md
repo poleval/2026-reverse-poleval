@@ -9,7 +9,7 @@ vendor a snapshot under `data/` (SQLite/TSV + licence + content hash) and
 sample it — never download SGJP or call a service at generate time.
 
 ```bash
-python example-submission/track-2/generate.py --seed 1 --out /tmp/seed1.json
+python example-submission/track-2/generate.py --seed 1 --out /tmp/seed1.jsonl
 ```
 
 Expected layout for a real submission:

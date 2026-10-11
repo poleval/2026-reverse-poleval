@@ -4,7 +4,7 @@ if any two share too many `input` strings.
 
 Example:
     python scripts/check_generator_seeds.py \\
-        --sets seed0.json seed1.json seed2.json \\
+        --sets seed0.jsonl seed1.jsonl seed2.jsonl \\
         --max-jaccard 0.5
 
 A generator that ignores `seed` (a static Track 1 set with an unused
@@ -44,7 +44,7 @@ def pairwise_jaccard(paths: List[str]) -> List[Tuple[str, str, float]]:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--sets", nargs="+", required=True,
-                        help="Two or more Track 2 materialisations (JSON: input, gold, optional aliases)")
+                        help="Two or more Track 2 materialisations (JSONL: input, gold, optional aliases)")
     parser.add_argument("--max-jaccard", type=float, default=MAX_SEED_JACCARD,
                         help="Disqualify if any pair of materialisations has Jaccard "
                              f"overlap on `input` above this value (default {MAX_SEED_JACCARD}, frozen at Test A)")

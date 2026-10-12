@@ -19,7 +19,7 @@ generate.py
 data/                 # vendored DB / forms table
 README.md
 LICENSE               # OSI-approved (this example: MIT)
-data/LICENSE          # redistributable with the archive
+data/LICENSE          # redistributable with the repository
 ```
 
 Licence: MIT (OSI-approved, so organisers can rerun it). Not a valid

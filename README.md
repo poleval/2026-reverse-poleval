@@ -31,7 +31,7 @@ You submit the items. You do not upload model predictions.
 | Track | What | Where | Rank |
 | --- | --- | --- | --- |
 | **1 — Benchmark set** (official) | 50–200 pairs `(input, gold)` | `items.jsonl` sent to the organisers | Hidden Test B panel |
-| **2 — Generator** (secondary) | Repository implementing `generate(seed)` | Clone URL or zip | Mean over 3 hidden seeds |
+| **2 — Generator** (secondary) | Repository implementing `generate(seed)` | Repository URL and commit hash | Mean over 3 hidden seeds |
 
 Tracks are ranked separately. Track 1 is the official task.
 
@@ -288,7 +288,9 @@ leaderboard.
 
 ## Track 2 — generator repository
 
-Send a pinned clone URL or a zip. The tree must
+Send the repository URL and the full commit hash in the email. The commit
+must be accessible to organisers and contain the complete submission. For a
+private repository, grant the user `djstrong` read access. The tree must
 implement `generate(seed) → n` items, $`50 \le n \le 200`$, same
 `input`/`gold` schema, documented as:
 
@@ -303,10 +305,10 @@ tree, an isolated writable output directory, and CPU, memory, process, and
 wall-clock limits.
 
 Any lexicon or other database the generator needs — morphological forms,
-for example — must be **inside the archive** (SQLite, TSV, or similar),
+for example — must be **inside the repository at that commit** (SQLite, TSV, or similar),
 with a content hash in the README. Generation samples that snapshot. It
 does not download data or call a network service. Python dependencies are
-pinned and installable from the archive before the network is cut. If the
+pinned and installable from the checked-out repository before the network is cut. If the
 data licence forbids shipping a snapshot, Track 2 is unavailable: submit a
 frozen Track 1 JSONL instead.
 
@@ -317,7 +319,7 @@ vendor/               # optional wheels
 requirements.txt
 README.md
 LICENSE               # OSI-approved, so organisers can rerun the code
-data/LICENSE          # redistributable with the archive
+data/LICENSE          # redistributable with the repository
 ```
 
 Generated items follow the same publication licence as Track 1.

@@ -39,8 +39,10 @@ FINAL before the announced deadline. The last timely FINAL email counts.
 
 ## Track 2 (optional)
 
-Email a ZIP with the generator, README, provenance, required data and
-pinned dependencies, and code/data licences. A repository link is optional.
+Email the repository URL and full commit hash. That commit must contain the
+generator, README, provenance, required data, pinned dependencies, and
+code/data licences, and be accessible to organisers. For a private
+repository, grant the user `djstrong` read access.
 Document `python generate.py --seed N --out items.jsonl`. Output follows the
 same schema and 50–200 item limits. Generation must be deterministic,
 offline and finish within 120 seconds in the organiser sandbox.

@@ -17,11 +17,9 @@ This file is the public task description. Frozen numbers:
 Spreadsheet path (no coding):
 [`development/spreadsheet-guide.md`](development/spreadsheet-guide.md).
 
-Submissions are collected by email at
-[krzysztof.pawel.wrobel@uj.edu.pl](mailto:krzysztof.pawel.wrobel@uj.edu.pl).
-Send one `items.jsonl` attachment and a
-short provenance/design explanation; mark the final email FINAL. See
-[submission procedure](development/README.md). No competition platform is required.
+Submit solutions through the PolEval evaluation platform. For Track 1, upload
+`items.jsonl`; for Track 2, provide a repository URL pointing to a specific
+commit hash or tag. See the [submission procedure](development/README.md).
 
 ## What you submit
 
@@ -30,8 +28,8 @@ You submit the items. You do not upload model predictions.
 
 | Track | What | Where | Rank |
 | --- | --- | --- | --- |
-| **1 — Benchmark set** (official) | 50–200 pairs `(input, gold)` | `items.jsonl` sent to the organisers | Hidden Test B panel |
-| **2 — Generator** (secondary) | Repository implementing `generate(seed)` | Repository URL and commit hash | Mean over 3 hidden seeds |
+| **1 — Benchmark set** (official) | 50–200 pairs `(input, gold)` | `items.jsonl` uploaded to PolEval | Hidden Test B panel |
+| **2 — Generator** (secondary) | Repository implementing `generate(seed)` | Repository URL with commit hash or tag, submitted on PolEval | Mean over 3 hidden seeds |
 
 Tracks are ranked separately. Track 1 is the official task.
 
@@ -288,10 +286,11 @@ leaderboard.
 
 ## Track 2 — generator repository
 
-Send the repository URL and the full commit hash in the email. The commit
-must be accessible to organisers and contain the complete submission. For a
-private repository, grant the user `djstrong` read access. The tree must
-implement `generate(seed) → n` items, $`50 \le n \le 200`$, same
+Submit a repository URL pointing to a specific commit hash or tag through
+the PolEval platform. The referenced revision must be accessible to organisers
+and contain the complete submission. For a private repository, grant the user
+`djstrong` read access. Organisers resolve a tag to a commit when accepting
+the submission. The tree must implement `generate(seed) → n` items, $`50 \le n \le 200`$, same
 `input`/`gold` schema, documented as:
 
 ```bash
@@ -361,7 +360,7 @@ tests and do not qualify as linguistic submissions.
 - [development/params.md](development/params.md) — Official limits.
 - [development/qualification-rubric.md](development/qualification-rubric.md) — Qualification rules and examples.
 - [development/provenance-template.md](development/provenance-template.md) — Provenance template.
-- [development/feedback-request-template.md](development/feedback-request-template.md) — Feedback email template.
+- [development/feedback-request-template.md](development/feedback-request-template.md) — Feedback request template.
 - [development/spreadsheet-guide.md](development/spreadsheet-guide.md) — Spreadsheet submission guide.
 - [development-models.md](development-models.md) — Development panel description.
 - [development/models.txt](development/models.txt) — Development model IDs.

@@ -1,8 +1,8 @@
 # Preparing a submission in a spreadsheet
 
 Submit `items.jsonl`: one item per line with `input`, `gold` and optional
-`aliases`. Email the file with a short explanation of the diagnostic
-phenomena, how the items were created, sources and confirmation of the
+`aliases`. Upload the file to the PolEval evaluation platform with
+a short explanation of the diagnostic phenomena, how the items were created, sources and confirmation of the
 authorship and publication licence rules.
 
 You can author items in Google Sheets or Excel. Use two columns: `input`
@@ -28,6 +28,5 @@ object as `aliases`, for example `"aliases": ["first variant", "second variant"]
 At most five aliases are allowed per item; each must mean the same thing
 as the canonical answer. Do not submit a separate aliases file.
 
-If your team needs help with conversion, arrange it with the organiser by
-email. Submit one complete JSONL file. Send the final version in an email
-marked FINAL before the deadline.
+If your team needs help with conversion, contact the organiser. Upload one
+complete JSONL file through the PolEval platform before the deadline.

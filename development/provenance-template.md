@@ -1,6 +1,7 @@
 # Provenance declaration
 
-Use this as a guide for the email explanation; a separate file is optional.
+Use this as a guide for the explanation accompanying the platform submission;
+a separate file is optional.
 
 Team:
 

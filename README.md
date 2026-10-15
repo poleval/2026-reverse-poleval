@@ -35,19 +35,7 @@ Tracks are ranked separately. Track 1 is the official task.
 
 ## Schedule
 
-Aligned with the [PolEval 2026 calendar](https://poleval.pl/dates/).
-
-| Date | Milestone |
-| --- | --- |
-| 13 October 2026 | Test A: schema, prompts, development models, format check, this kit |
-| 13 October – 30 November 2026 | Development. Rolling qualification. At most one unofficial panel run per team per ISO week |
-| 13 November 2026 | Second call for participation |
-| 1 December 2026 | Test B deadline. Organisers run the hidden panel offline |
-| 8 December 2026 | Official results |
-| 15 December 2026 | Participant paper deadline |
-| 5 January 2027 | Paper acceptance |
-| 19 January 2027 | Camera-ready |
-| March 2027 | Presentation; proceedings in the ACL Anthology |
+All dates of PolEval 2026 are listed on the [PolEval dates page](https://poleval.pl/dates/).
 
 ## Official chat messages
 
@@ -277,7 +265,7 @@ to the 40B cap.
 
 ### Unofficial feedback
 
-13 October – 30 November 2026: at most **one** organiser batch run of the
+16 October – 30 November 2026: at most **one** organiser batch run of the
 development panel per team per ISO week (Monday–Sunday, `Europe/Warsaw`). Manual, not
 an API. Request template:
 [`development/feedback-request-template.md`](development/feedback-request-template.md).
